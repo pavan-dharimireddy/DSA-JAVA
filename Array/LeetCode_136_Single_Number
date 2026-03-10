@@ -1,0 +1,44 @@
+class Solution {
+    public int singleNumber(int[] nums) {
+/*
+            // approach 1 , brute force -- count the no of times each element appears and then go to next element repeat the process, time complexity --- O(N*N),extra space complexity --- O(1)
+
+        // approach 2, hashmap ,, time complexity --- O(log(N)) + O(N/2 + 1),extra space complexity --- O(N/2 + 1)
+        // don't use array for hashing because large numbers leads to more space and negative numbers cannot be put in the array
+
+        // In Java, a HashMap is unordered
+        // If you need an ordered map, you can use alternatives like:
+// LinkedHashMap: Maintains the insertion order of elements.
+// TreeMap: Maintains elements in their natural order (or a custom order defined by a comparator).
+
+
+        int n = nums.length;
+        HashMap<Integer,Integer> m = new HashMap<>();
+        for(int i=0;i<n;i++){
+
+            if(m.containsKey(nums[i])){
+                m.put(nums[i],m.get(nums[i])+1);
+            }
+            else{
+                m.put(nums[i],1);
+            }
+        }
+        for(int key : m.keySet()){
+            if(m.get(key)==1){
+                return key;
+            }
+        }
+    return -1;
+
+    */
+
+
+// approach 3, optimal,, time complexity --- O(N),extra space complexity --- O(1)
+int n = nums.length; 
+int Xor = 0;
+for(int x : nums){
+    Xor = Xor^x;
+}
+return Xor;
+    }
+}
