@@ -1,0 +1,85 @@
+class Solution {
+    public int majorityElement(int[] nums) {
+
+/*
+    // approach 1, brute force , time complexity --- O(N*N)
+    int n = nums.length;
+    int count = 0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if(nums[i] == nums[j]){
+                count++;
+            }
+        }
+        if(count > n/2){
+            return nums[i];
+        }
+        else{
+            count = 0;
+        }
+    }
+    return -1;
+
+    */
+
+
+/*
+    // approach 2, time complexity --- O(Nlog(N))
+    int n = nums.length;
+    Arrays.sort(nums);
+    int count = 1;
+    if(n==1){
+        return nums[0];
+    }
+    for(int i=0;i<n-1;i++){
+        if(nums[i]==nums[i+1]){
+            count++;
+            if(count > n/2){
+                return nums[i];
+            }
+        }
+        else{
+            count = 1; 
+        }    
+    }
+    return -1;
+
+    */
+
+        /*
+        // approach 3 . hashing ,, time complexity --- O(N*insertion time of hashmap)+O(N) for traversal, extra space complexity --- O(N)
+        int n = nums.length;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int x:nums){
+            map.put(x,map.getOrDefault(x,0)+1);         
+        }
+        for(int u:map.keySet()){
+            if(map.get(u)>n/2){
+                return u;
+            }
+        }
+        return -1;
+
+        */
+
+    // approach 4, Moore's voting algo, time complexity --- O(N)
+    int n = nums.length;
+    int count = 0;
+    int element = nums[0];
+    for(int i=0;i<n;i++){
+        if(nums[i] == element){
+            count++;
+        }
+        else if(count ==0){
+            element = nums[i];
+            count = 1;
+        }
+        else{
+            count--;
+        }
+    }
+    // they mentioned, there is always a majority element, so we are not going for verification
+    return element;
+
+    }
+}
