@@ -1,0 +1,117 @@
+class Solution {
+    public void setZeroes(int[][] matrix) {
+
+/*
+
+        // approach 1,, brute force
+        // Time Complexity: O((N*M)*(N + M)) + O(N*M), where M = no. of rows in the matrix and N = no. of columns in the matrix.,Space Complexity: O(1) 
+        int m = matrix.length; // m --> rows
+        int n = matrix[0].length;  // n --> columns
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j] == 0){
+                    mark_row_negative(matrix,n,m,i);
+                    mark_col_negative(matrix,n,m,j);
+                }
+            }
+        }
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j] == -1){  
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+
+    }
+
+    public void mark_row_negative(int[][] matrix,int n,int m,int i){
+        for(int x=0;x<n;x++){
+            if(matrix[i][x] != 0){
+                matrix[i][x] = -1;   // if matrix[i][j] > 0 only
+            } 
+        }
+    }
+
+    public void mark_col_negative(int[][] matrix,int n,int m,int j){
+        for(int y=0;y<m;y++){
+            if(matrix[y][j] != 0){
+                matrix[y][j] = -1;  // if matrix[i][j] > 0 only
+            } 
+        }
+    }
+
+    */
+
+/*
+// approach 2(better), modifying approach 1, time complexity ---> O(m*n)+O(m*n) = O(2*mn), space complexity --> O(m) + O(n)
+        int m = matrix.length; // m --> rows
+        int n = matrix[0].length;  // n --> columns
+
+        int[] row_zero_index = new int[m];
+        int[] col_zero_index = new int[n];
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j] == 0){
+                    row_zero_index[i] = 1;
+                    col_zero_index[j] = 1;
+                }
+            }
+        }
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(row_zero_index[i]==1 || col_zero_index[j]==1){
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+*/
+
+// approach 3,, optimal ,, time complexity ---> O(2(m*n)), space complexity ---> O(1)
+
+        int m = matrix.length; // m --> rows
+        int n = matrix[0].length;  // n --> columns
+        int row0 = 1;
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j] == 0){
+                    if(j!=0){
+                        matrix[0][j] = 0;
+                    }
+                    else{
+                        row0 = 0;
+                    }
+                    matrix[i][0] = 0;             
+                }
+                
+            }
+        }
+
+        for(int i=1;i<m;i++){
+            for(int j=1;j<n;j++){
+                if(matrix[i][j] != 0){
+                    if(matrix[0][j] == 0 || matrix[i][0] == 0){
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+        }
+
+        // Finally mark the 1st col & then 1st row:
+        if(matrix[0][0] == 0){
+            for(int j=0;j<n;j++){
+                matrix[0][j] = 0;
+            }
+        }
+        if(row0 == 0){
+            for(int i=0;i<m;i++){
+                matrix[i][0] = 0;
+            }
+        }
+    }
+}
