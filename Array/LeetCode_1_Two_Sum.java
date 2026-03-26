@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 class Solution {
-    public int[] twoSum(int[] nums, int target) {
+    public int[] twoSum(int[] nums, int target) { 
 
 // the same question can be asked in different way like " return yes or no, in that case we can use two pointer technique, sort the array, left pointer at starting and right pointer at end, and if sum greater than target decrease right pointer , if sum lesser than target increase left pointer"
 /*
