@@ -2,7 +2,7 @@ class Solution {
     public void sortColors(int[] nums) {
         
         // approach 1, brute force, applying sorting algo ,, time complexity -- O(Nlog(N))
-/*
+/* 
         // approach 2, time complexity ---- O(2N)
             int n = nums.length;
             int count0 = 0,count1=0,count2 = 0;
