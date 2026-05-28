@@ -7,7 +7,6 @@ Given a binary tree, determine if it is **height-balanced**.
 A height-balanced binary tree is defined as:
 > A binary tree in which the left and right subtrees of *every* node differ in height by no more than `1`.
 
-## Approaches
 
 ### Approach 1: Brute Force (Top-Down)
 In this approach, we calculate the height of the left and right subtrees for every single node using a separate `getHeight` function. We then check if the absolute difference between these heights is `<= 1`. This check is performed recursively for all nodes in the tree.
