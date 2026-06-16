@@ -29,19 +29,89 @@ You must solve the problem in `O(1)` extra space complexity and `O(n)` time comp
 
 ## Approaches
 
-### Approach 1: Using ArrayList (Brute Force)
-
-Extract the values from the linked list into an `ArrayList` by skipping nodes to get all odd-indexed node values first, then repeating the process for even-indexed nodes. Finally, iterate through the original linked list to overwrite the node values with the newly sorted values from the array.
-
-- **Time Complexity:** `O(N)` — We traverse the list multiple times, which simplifies to linear time.
-- **Space Complexity:** `O(N)` — We use an extra `ArrayList` of size N to store the values.
-
-### Approach 2: Creating New Nodes (Sub-optimal)
+### Approach 1: Creating New Nodes (Sub-optimal)
 
 Create two dummy nodes (`odd` and `even`). Traverse the list while maintaining an index count. Depending on whether the count is odd or even, append a **newly created node** with the current value to the respective dummy list. Finally, link the tail of the odd list to the head of the even list.
 
 - **Time Complexity:** `O(N)`
 - **Space Complexity:** `O(N)` — Because we create completely new nodes instead of manipulating existing ones.
+
+```java
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+
+        ListNode odd = new ListNode(-1);
+        ListNode odd_temp = odd;
+        ListNode even = new ListNode(-1);
+        ListNode even_temp = even;
+        int count = 1;
+        ListNode temp = head;
+
+        while (temp != null) {
+            if (count % 2 == 0) {
+                even_temp.next = new ListNode(temp.val);
+                even_temp = even_temp.next;
+            } else {
+                odd_temp.next = new ListNode(temp.val);
+                odd_temp = odd_temp.next;
+            }
+            temp = temp.next;
+            count++;
+        }
+
+        odd_temp.next = even.next;
+        return odd.next;
+    }
+}
+```
+
+### Approach 2: Using ArrayList (Brute Force)
+
+Extract the values from the linked list into an `ArrayList` by skipping nodes to get all odd-indexed node values first, then repeating the process for even-indexed nodes. Finally, iterate through the original linked list to overwrite the node values with the newly sorted values from the array.
+
+- **Time Complexity:** `O(2N)` — We traverse the list multiple times.
+- **Space Complexity:** `O(N)` — We use an extra `ArrayList` of size N to store the values.
+
+```java
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        List<Integer> arr = new ArrayList<>();
+
+        // Add odd-indexed nodes
+        ListNode temp = head;
+        while (temp != null && temp.next != null) {
+            arr.add(temp.val);
+            temp = temp.next.next;
+        }
+        if (temp != null) arr.add(temp.val);
+
+        // Add even-indexed nodes
+        temp = head.next;
+        while (temp != null && temp.next != null) {
+            arr.add(temp.val);
+            temp = temp.next.next;
+        }
+        if (temp != null) arr.add(temp.val);
+
+        // Overwrite original list
+        int i = 0;
+        temp = head;
+        while (temp != null) {
+            temp.val = arr.get(i);
+            i++;
+            temp = temp.next;
+        }
+        return head;
+    }
+}
+```
 
 ### Approach 3: In-Place Pointer Manipulation (Optimal)
 
