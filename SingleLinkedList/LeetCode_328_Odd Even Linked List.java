@@ -42,7 +42,7 @@ class Solution {
 Approach -- using ArrayList
 T.C --- O(2N)
 S.C --- O(N)
-*/
+
 class Solution {
     public ListNode oddEvenList(ListNode head) {
         if(head == null || head.next == null){
@@ -77,3 +77,54 @@ class Solution {
     return head;
     }
 }
+*/
+
+/*
+Approach 2 --- Link changing
+T.C --- O(N)
+S.C --- O(1)
+*/
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = even;
+        while(even != null && even.next != null){
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+        return head;
+    }
+}
+
+/*
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = even;
+
+        while (even != null && even.next != null) {
+            odd.next = even.next;
+            odd = odd.next;
+
+            even.next = odd.next;
+            even = even.next;
+        }
+
+        odd.next = evenHead;
+        return head;
+    }
+}
+*/
